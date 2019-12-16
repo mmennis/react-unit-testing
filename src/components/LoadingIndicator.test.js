@@ -16,4 +16,19 @@ describe('LoadingIndicator', () => {
             wrapper.unmount();
         });
     });
+
+    describe('when loading is false', () => {
+
+        describe('given 200ms has not elapsed', () => {
+            it('should render nothing', () => {
+                const wrapper = mount(
+                    <LoadingIndicator isLoading={true}>
+                        <div>ahoy!</div>
+                    </LoadingIndicator>
+                );
+                expect(wrapper.html()).toBe(null);
+                wrapper.unmount();
+            })
+        })
+    });
 })
