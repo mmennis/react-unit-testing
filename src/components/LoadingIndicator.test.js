@@ -29,6 +29,42 @@ describe('LoadingIndicator', () => {
                 expect(wrapper.html()).toBe(null);
                 wrapper.unmount();
             })
-        })
+        });
+
+        describe('given 200ms have elapsed', () => {
+            it.skip('should render the loading indicator', () => {
+                jest.useFakeTimers();
+                const wrapper = mount(
+                    <LoadingIndicator isLoading={true}>
+                        <div>ahoy!</div>
+                    </LoadingIndicator>
+                );
+
+                expect(setTimeout.mock.calls.length).toEqual(1);
+                expect(setTimeout.mock.calls[0][1]).toEqual(200);
+                jest.runAllTimers();
+                expect(wrapper.html()).toBe('<div>loading ...</div>');
+                wrapper.unmount();
+            });
+        });
+    });
+
+    describe('on unmount', () => {
+        it('should clear timeout', () => {
+            jest.useFakeTimers();
+
+            const mockTimerValue = 12345;
+            setTimeout.mockReturnValue(mockTimerValue);
+
+            const wrapper = mount(
+                <LoadingIndicator isLoading={true}>
+                    <div>ahoy!</div>
+                </LoadingIndicator>
+            );
+
+            wrapper.unmount();
+            expect(clearTimeout.mock.calls.length).toEqual(1);
+            expect(clearTimeout.mock.calls[0][0]).toEqual(mockTimerValue);
+        });
     });
 })
