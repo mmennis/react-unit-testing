@@ -31,6 +31,7 @@ describe('LoadingIndicator', () => {
             })
         });
 
+        // FIXME - problem with this test
         describe('given 200ms have elapsed', () => {
             it.skip('should render the loading indicator', () => {
                 jest.useFakeTimers();
