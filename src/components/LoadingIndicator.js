@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class LoadingIndicator extends React.Component {
+export default class LoadingIndicator extends Component {
 
     static propTypes = {
         isLoading: PropTypes.bool.isRequired
@@ -14,7 +14,6 @@ export default class LoadingIndicator extends React.Component {
     componentDidMount() {
         this._delayTimer = setTimeout(
             () => {
-                console.log("TIMER EXPIRED!!!")
                 this.setState({ isPastDelay: true })
             }, 200
         );
@@ -25,12 +24,14 @@ export default class LoadingIndicator extends React.Component {
     }
 
     render() {
+        var retVal = this.props.children;
         if (this.props.isLoading) {
-          if (!this.state.isPastDelay) {
-            return null;
+          if (this.state.isPastDelay) {
+            retVal = <div>loading ...</div>;
+          } else {
+            retVal = null;
           }
-          return <div>loading...</div>;
         }
-        return this.props.children;
+        return retVal;
     }
 }

@@ -21,7 +21,7 @@ function App() {
         </a>
       </header>
 
-      <LoadingIndicator isLoading={false}>
+      <LoadingIndicator isLoading={true}>
         <div>ahoy!</div>
       </LoadingIndicator>
     </div>
